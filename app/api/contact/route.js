@@ -14,13 +14,32 @@ function missingEnv() {
 }
 
 function normalizePayload(payload) {
+  const currency = String(payload.currency || "IDR").trim().toUpperCase();
+
   return {
     name: String(payload.name || "").trim(),
     contact: String(payload.contact || "").trim(),
     purpose: String(payload.purpose || "").trim(),
     budget: String(payload.budget || "").trim(),
+    currency: currency === "USD" ? "USD" : "IDR",
     message: String(payload.message || "").trim(),
   };
+}
+
+function digitsOnly(value) {
+  return value.replace(/\D/g, "");
+}
+
+function formatBudget(payload) {
+  const digits = digitsOnly(payload.budget);
+
+  if (!digits) {
+    return "";
+  }
+
+  const separator = payload.currency === "USD" ? "," : ".";
+  const formattedAmount = digits.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+  return `${payload.currency} ${formattedAmount}`;
 }
 
 function validatePayload(payload) {
@@ -63,6 +82,7 @@ export async function POST(request) {
   }
 
   const payload = normalizePayload(body);
+  const formattedBudget = formatBudget(payload);
   const validationError = validatePayload(payload);
 
   if (validationError) {
@@ -79,7 +99,7 @@ export async function POST(request) {
     name: payload.name,
     contact: payload.contact,
     purpose: payload.purpose,
-    budget: payload.budget || null,
+    budget: formattedBudget || null,
     message: payload.message,
   });
 
@@ -101,7 +121,7 @@ export async function POST(request) {
         `Nama: ${payload.name}`,
         `Kontak: ${payload.contact}`,
         `Keperluan: ${payload.purpose}`,
-        `Budget: ${payload.budget || "-"}`,
+        `Budget: ${formattedBudget || "-"}`,
         "",
         "Pesan:",
         payload.message,

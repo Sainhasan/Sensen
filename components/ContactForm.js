@@ -7,8 +7,24 @@ const initialForm = {
   contact: "",
   purpose: "Belajar web",
   budget: "",
+  currency: "IDR",
   message: "",
 };
+
+function digitsOnly(value) {
+  return value.replace(/\D/g, "");
+}
+
+function formatBudget(value, currency) {
+  const digits = digitsOnly(value);
+
+  if (!digits) {
+    return "";
+  }
+
+  const separator = currency === "USD" ? "," : ".";
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+}
 
 export default function ContactForm() {
   const [form, setForm] = useState(initialForm);
@@ -17,6 +33,24 @@ export default function ContactForm() {
 
   function updateField(event) {
     const { name, value } = event.target;
+
+    if (name === "currency") {
+      setForm((current) => ({
+        ...current,
+        currency: value,
+        budget: formatBudget(current.budget, value),
+      }));
+      return;
+    }
+
+    if (name === "budget") {
+      setForm((current) => ({
+        ...current,
+        budget: formatBudget(value, current.currency),
+      }));
+      return;
+    }
+
     setForm((current) => ({ ...current, [name]: value }));
   }
 
@@ -57,8 +91,12 @@ export default function ContactForm() {
 
   return (
     <form className="contact-panel" onSubmit={submitForm}>
-      {status.type === "success" ? <div className="alert alert-success">{status.message}</div> : null}
-      {status.type === "error" ? <div className="alert alert-danger">{status.message}</div> : null}
+      {status.type === "success" ? (
+        <div className="alert alert-success">{status.message}</div>
+      ) : null}
+      {status.type === "error" ? (
+        <div className="alert alert-danger">{status.message}</div>
+      ) : null}
 
       <div className="row g-3">
         <div className="col-md-6">
@@ -116,15 +154,29 @@ export default function ContactForm() {
           <label className="form-label fw-semibold" htmlFor="budget">
             Budget
           </label>
-          <input
-            className="form-control"
-            id="budget"
-            name="budget"
-            onChange={updateField}
-            placeholder="Opsional"
-            type="text"
-            value={form.budget}
-          />
+          <div className="input-group" style={{ display: "flex", gap: "8px" }}>
+            <select
+              className="form-select"
+              name="currency"
+              onChange={updateField}
+              value={form.currency}
+              style={{ flex: "0 0 auto", minWidth: "100px" }}
+            >
+              <option value="IDR">IDR</option>
+              <option value="USD">USD</option>
+            </select>
+            <input
+              className="form-control"
+              id="budget"
+              inputMode="numeric"
+              name="budget"
+              onChange={updateField}
+              placeholder={form.currency === "USD" ? "1,000" : "1.000.000"}
+              type="text"
+              value={form.budget}
+              style={{ flex: "1" }}
+            />
+          </div>
         </div>
 
         <div className="col-12">
@@ -144,7 +196,11 @@ export default function ContactForm() {
         </div>
 
         <div className="col-12">
-          <button className="btn btn-primary w-100 py-2" disabled={isSubmitting} type="submit">
+          <button
+            className="btn btn-primary w-100 py-2"
+            disabled={isSubmitting}
+            type="submit"
+          >
             {isSubmitting ? "Mengirim..." : "Kirim Pesan"}
           </button>
         </div>
