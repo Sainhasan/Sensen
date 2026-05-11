@@ -1,0 +1,23 @@
+{
+  "name": "personal-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "bootstrap": "^5.3.3",
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "resend": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.2.6"
+  }
+}

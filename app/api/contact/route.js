@@ -1,0 +1,116 @@
+import { createClient } from "@supabase/supabase-js";
+import { Resend } from "resend";
+
+const requiredEnv = [
+  "SUPABASE_URL",
+  "SUPABASE_SERVICE_ROLE_KEY",
+  "RESEND_API_KEY",
+  "CONTACT_TO_EMAIL",
+  "CONTACT_FROM_EMAIL",
+];
+
+function missingEnv() {
+  return requiredEnv.filter((key) => !process.env[key]);
+}
+
+function normalizePayload(payload) {
+  return {
+    name: String(payload.name || "").trim(),
+    contact: String(payload.contact || "").trim(),
+    purpose: String(payload.purpose || "").trim(),
+    budget: String(payload.budget || "").trim(),
+    message: String(payload.message || "").trim(),
+  };
+}
+
+function validatePayload(payload) {
+  const requiredFields = ["name", "contact", "purpose", "message"];
+  const missingFields = requiredFields.filter((field) => !payload[field]);
+
+  if (missingFields.length > 0) {
+    return "Nama, kontak, keperluan, dan pesan wajib diisi.";
+  }
+
+  if (payload.message.length < 10) {
+    return "Pesan minimal 10 karakter.";
+  }
+
+  if (payload.name.length > 120 || payload.contact.length > 160 || payload.purpose.length > 80) {
+    return "Beberapa input terlalu panjang.";
+  }
+
+  if (payload.budget.length > 120 || payload.message.length > 2000) {
+    return "Budget atau pesan terlalu panjang.";
+  }
+
+  return null;
+}
+
+export async function POST(request) {
+  const envMissing = missingEnv();
+
+  if (envMissing.length > 0) {
+    console.error("Missing contact form environment variables:", envMissing.join(", "));
+    return Response.json({ message: "Konfigurasi server belum lengkap." }, { status: 500 });
+  }
+
+  let body;
+
+  try {
+    body = await request.json();
+  } catch {
+    return Response.json({ message: "Format request tidak valid." }, { status: 400 });
+  }
+
+  const payload = normalizePayload(body);
+  const validationError = validatePayload(payload);
+
+  if (validationError) {
+    return Response.json({ message: validationError }, { status: 400 });
+  }
+
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
+    auth: {
+      persistSession: false,
+    },
+  });
+
+  const { error: insertError } = await supabase.from("contact_inquiries").insert({
+    name: payload.name,
+    contact: payload.contact,
+    purpose: payload.purpose,
+    budget: payload.budget || null,
+    message: payload.message,
+  });
+
+  if (insertError) {
+    console.error("Supabase insert failed:", insertError.message);
+    return Response.json({ message: "Pesan belum bisa disimpan." }, { status: 500 });
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  try {
+    await resend.emails.send({
+      from: process.env.CONTACT_FROM_EMAIL,
+      to: process.env.CONTACT_TO_EMAIL,
+      subject: `Inquiry portfolio: ${payload.purpose}`,
+      text: [
+        "Ada pesan baru dari form portfolio.",
+        "",
+        `Nama: ${payload.name}`,
+        `Kontak: ${payload.contact}`,
+        `Keperluan: ${payload.purpose}`,
+        `Budget: ${payload.budget || "-"}`,
+        "",
+        "Pesan:",
+        payload.message,
+      ].join("\n"),
+    });
+  } catch (error) {
+    console.error("Resend email failed:", error.message);
+    return Response.json({ message: "Pesan tersimpan, tapi email notifikasi gagal dikirim." }, { status: 502 });
+  }
+
+  return Response.json({ message: "Pesan berhasil dikirim." });
+}
