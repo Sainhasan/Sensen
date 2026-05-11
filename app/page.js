@@ -84,7 +84,6 @@ export default function Home() {
         <div className="container py-5">
           <div className="row align-items-center g-5 py-lg-5">
             <div className="col-lg-7">
-              <p className="section-kicker mb-3">Web developer portfolio</p>
               <h1 className="hero-title mb-4">Halo, aku bantu bikin web yang jelas dan enak dipakai.</h1>
               <p className="hero-copy mb-4">
                 Ini tempat untuk kenalan, lihat layanan, dan ngobrol soal kebutuhan web. Bisa untuk belajar,
@@ -156,7 +155,7 @@ export default function Home() {
         <div className="row mb-4">
           <div className="col-lg-7">
             <p className="section-kicker mb-2">Project</p>
-            <h2 className="section-title">Contoh arah pekerjaan yang bisa dikembangkan.</h2>
+            <h2 className="section-title">ini yang aku bisa lakuin.</h2>
           </div>
         </div>
         <div className="row g-4">
@@ -178,10 +177,6 @@ export default function Home() {
           <div className="col-lg-5">
             <p className="section-kicker mb-2">Kontak</p>
             <h2 className="section-title">Ceritain kebutuhanmu, nanti aku balas lewat email.</h2>
-            <p className="muted mt-3">
-              Form ini akan menyimpan inquiry ke database dan mengirim notifikasi email. Cocok untuk request
-              belajar, estimasi jasa web, atau diskusi kerja sama.
-            </p>
           </div>
           <div className="col-lg-7">
             <ContactForm />

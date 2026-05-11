@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 
 export const metadata = {
-  title: "Portfolio Pribadi",
+  title: "CariAku",
   description: "Portfolio pribadi, layanan web, dan form kontak.",
 };
 

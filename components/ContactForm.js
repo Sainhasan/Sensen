@@ -144,7 +144,6 @@ export default function ContactForm() {
             value={form.purpose}
           >
             <option>Belajar web</option>
-            <option>Minta fee pembuatan web</option>
             <option>Kerja sama</option>
             <option>Lainnya</option>
           </select>
