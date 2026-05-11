@@ -42,6 +42,16 @@ a {
   backdrop-filter: blur(12px);
 }
 
+.topbar .navbar-brand,
+.topbar .navbar-brand:hover,
+.topbar a {
+  color: var(--ink);
+}
+
+.topbar a:hover {
+  color: var(--accent-strong);
+}
+
 .brand-mark {
   align-items: center;
   background: linear-gradient(135deg, var(--accent), #cad8de);
