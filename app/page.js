@@ -24,18 +24,21 @@ const services = [
 const projects = [
   {
     label: "Portfolio",
-    title: "Website Personal",
-    description: "Profil online yang menampilkan cerita, layanan, project, dan jalur kontak yang jelas.",
+    title: "BAli",
+    description: "Project website yang dipublish lewat GitHub Pages.",
+    url: "https://sainhasan.github.io/BAli/",
   },
   {
     label: "Service",
-    title: "Landing Page Jasa",
-    description: "Halaman promosi layanan dengan CTA, ringkasan benefit, dan form inquiry.",
+    title: "Sistem Coba",
+    description: "Aplikasi web yang sudah online di Vercel.",
+    url: "https://sistem-coba.vercel.app/",
   },
   {
     label: "Learning",
-    title: "Materi Belajar Web",
-    description: "Susunan materi latihan untuk memahami frontend dari dasar sampai deploy.",
+    title: "Apologize",
+    description: "Project interaktif yang dipublish lewat GitHub Pages.",
+    url: "https://sainhasan.github.io/Apologize/",
   },
 ];
 
@@ -159,11 +162,12 @@ export default function Home() {
         <div className="row g-4">
           {projects.map((project) => (
             <div className="col-md-4" key={project.title}>
-              <article className="project-card">
+              <a className="project-card project-link text-decoration-none" href={project.url} target="_blank" rel="noreferrer">
                 <div className="project-thumb">{project.label}</div>
                 <h3 className="h5 fw-bold">{project.title}</h3>
-                <p className="muted mb-0">{project.description}</p>
-              </article>
+                <p className="muted mb-3">{project.description}</p>
+                <span className="project-cta">Buka project</span>
+              </a>
             </div>
           ))}
         </div>
