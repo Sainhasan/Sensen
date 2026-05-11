@@ -39,6 +39,18 @@ const projects = [
   },
 ];
 
+const skills = [
+  "JavaScript",
+  "PHP",
+  "Blade",
+  "GitHub",
+  "Git",
+  "HTML",
+  "CSS",
+  "Bootstrap",
+  "Tailwind CSS",
+];
+
 export default function Home() {
   return (
     <main className="site-shell">
@@ -51,6 +63,9 @@ export default function Home() {
           <div className="d-flex gap-3 small fw-semibold">
             <a className="text-decoration-none" href="#services">
               Layanan
+            </a>
+            <a className="text-decoration-none" href="#skills">
+              Skill
             </a>
             <a className="text-decoration-none" href="#projects">
               Project
@@ -110,6 +125,30 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="skills-section py-5" id="skills">
+        <div className="container">
+          <div className="row align-items-end g-4 mb-4">
+            <div className="col-lg-7">
+              <p className="section-kicker mb-2">Keahlian</p>
+              <h2 className="section-title">Bahasa dan tools yang biasa aku pakai.</h2>
+            </div>
+            <div className="col-lg-5">
+              <p className="muted mb-0">
+                Fokusku ada di web development yang praktis: frontend rapi, backend sederhana, dan workflow git
+                yang enak untuk kolaborasi.
+              </p>
+            </div>
+          </div>
+          <div className="skills-cloud">
+            {skills.map((skill) => (
+              <span className="skill-pill" key={skill}>
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="container py-5" id="projects">
         <div className="row mb-4">
           <div className="col-lg-7">
@@ -148,7 +187,7 @@ export default function Home() {
 
       <footer className="py-4">
         <div className="container d-flex flex-column flex-md-row justify-content-between gap-2 small muted">
-          <span>© {new Date().getFullYear()} Portfolio Pribadi</span>
+          <span>&copy; {new Date().getFullYear()} Portfolio Pribadi</span>
           <span>Built with Next.js, Bootstrap, Supabase, and Resend.</span>
         </div>
       </footer>
