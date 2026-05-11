@@ -82,18 +82,26 @@ function createEmailHtml(payload, formattedBudget) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Inquiry Portfolio</title>
       </head>
-      <body style="margin:0;background:#f4f7fb;color:#16202a;font-family:Arial,Helvetica,sans-serif;">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f4f7fb;padding:28px 12px;">
+      <body style="margin:0;background:#0F1108;color:#CAD8DE;font-family:Inter,Arial,Helvetica,sans-serif;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#0F1108;padding:28px 12px;">
           <tr>
             <td align="center">
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#ffffff;border:1px solid #dce3ec;border-radius:14px;overflow:hidden;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;background:#17140D;border:1px solid rgba(202,216,222,0.16);border-radius:16px;overflow:hidden;">
                 <tr>
-                  <td style="background:#102027;padding:28px 30px;color:#ffffff;">
-                    <div style="display:inline-block;background:#0f8b8d;color:#ffffff;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:700;margin-bottom:16px;">
-                      New portfolio inquiry
-                    </div>
-                    <h1 style="margin:0;font-size:28px;line-height:1.2;font-weight:800;">${safePayload.purpose}</h1>
-                    <p style="margin:10px 0 0;color:#c9d4df;font-size:15px;line-height:1.6;">
+                  <td style="background:#241909;padding:28px 30px;color:#CAD8DE;border-bottom:1px solid rgba(202,216,222,0.14);">
+                    <table role="presentation" cellspacing="0" cellpadding="0" style="margin-bottom:18px;">
+                      <tr>
+                        <td style="width:44px;height:44px;border-radius:10px;background:#8DEBE8;color:#0F1108;font-size:22px;font-weight:800;text-align:center;vertical-align:middle;">
+                          P
+                        </td>
+                        <td style="padding-left:12px;">
+                          <div style="color:#00F6ED;font-size:12px;font-weight:800;text-transform:uppercase;">New inquiry</div>
+                          <div style="color:rgba(202,216,222,0.72);font-size:13px;margin-top:3px;">Portfolio contact form</div>
+                        </td>
+                      </tr>
+                    </table>
+                    <h1 style="margin:0;font-size:28px;line-height:1.2;font-weight:800;color:#CAD8DE;">${safePayload.purpose}</h1>
+                    <p style="margin:10px 0 0;color:rgba(202,216,222,0.72);font-size:15px;line-height:1.6;">
                       Ada pesan baru dari form kontak portfolio kamu.
                     </p>
                   </td>
@@ -103,39 +111,39 @@ function createEmailHtml(payload, formattedBudget) {
                     <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                       <tr>
                         <td style="padding:0 0 14px;">
-                          <div style="font-size:12px;color:#667085;font-weight:700;text-transform:uppercase;">Nama</div>
-                          <div style="font-size:18px;font-weight:800;margin-top:4px;">${safePayload.name}</div>
+                          <div style="font-size:12px;color:rgba(202,216,222,0.62);font-weight:800;text-transform:uppercase;">Nama</div>
+                          <div style="font-size:18px;font-weight:800;margin-top:4px;color:#CAD8DE;">${safePayload.name}</div>
                         </td>
                       </tr>
                       <tr>
                         <td style="padding:0 0 18px;">
-                          <div style="font-size:12px;color:#667085;font-weight:700;text-transform:uppercase;">Kontak</div>
+                          <div style="font-size:12px;color:rgba(202,216,222,0.62);font-weight:800;text-transform:uppercase;">Kontak</div>
                           <div style="font-size:16px;margin-top:4px;">
-                            <a href="mailto:${safePayload.contact}" style="color:#0f8b8d;text-decoration:none;font-weight:700;">${safePayload.contact}</a>
+                            <a href="mailto:${safePayload.contact}" style="color:#00F6ED;text-decoration:none;font-weight:800;">${safePayload.contact}</a>
                           </div>
                         </td>
                       </tr>
                     </table>
 
-                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #dce3ec;border-radius:10px;margin:4px 0 22px;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid rgba(202,216,222,0.14);border-radius:12px;margin:4px 0 22px;background:#241909;">
                       <tr>
-                        <td width="50%" style="padding:16px;border-right:1px solid #dce3ec;">
-                          <div style="font-size:12px;color:#667085;font-weight:700;text-transform:uppercase;">Keperluan</div>
-                          <div style="font-size:15px;font-weight:700;margin-top:6px;">${safePayload.purpose}</div>
+                        <td width="50%" style="padding:16px;border-right:1px solid rgba(202,216,222,0.14);">
+                          <div style="font-size:12px;color:rgba(202,216,222,0.62);font-weight:800;text-transform:uppercase;">Keperluan</div>
+                          <div style="font-size:15px;font-weight:800;margin-top:6px;color:#CAD8DE;">${safePayload.purpose}</div>
                         </td>
                         <td width="50%" style="padding:16px;">
-                          <div style="font-size:12px;color:#667085;font-weight:700;text-transform:uppercase;">Budget</div>
-                          <div style="font-size:15px;font-weight:700;margin-top:6px;">${safePayload.budget}</div>
+                          <div style="font-size:12px;color:rgba(202,216,222,0.62);font-weight:800;text-transform:uppercase;">Budget</div>
+                          <div style="font-size:15px;font-weight:800;margin-top:6px;color:#CAD8DE;">${safePayload.budget}</div>
                         </td>
                       </tr>
                     </table>
 
-                    <div style="background:#f8fafc;border:1px solid #dce3ec;border-radius:10px;padding:18px;">
-                      <div style="font-size:12px;color:#667085;font-weight:700;text-transform:uppercase;margin-bottom:10px;">Pesan</div>
-                      <div style="font-size:16px;line-height:1.7;color:#26313d;">${safePayload.message}</div>
+                    <div style="background:#0F1108;border:1px solid rgba(0,246,237,0.22);border-radius:12px;padding:18px;">
+                      <div style="font-size:12px;color:#00F6ED;font-weight:800;text-transform:uppercase;margin-bottom:10px;">Pesan</div>
+                      <div style="font-size:16px;line-height:1.7;color:#CAD8DE;">${safePayload.message}</div>
                     </div>
 
-                    <p style="margin:22px 0 0;color:#667085;font-size:13px;line-height:1.6;">
+                    <p style="margin:22px 0 0;color:rgba(202,216,222,0.62);font-size:13px;line-height:1.6;">
                       Data ini juga sudah tersimpan di Supabase pada tabel contact_inquiries.
                     </p>
                   </td>
