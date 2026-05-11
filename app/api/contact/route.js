@@ -111,7 +111,7 @@ export async function POST(request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: process.env.CONTACT_FROM_EMAIL,
       to: process.env.CONTACT_TO_EMAIL,
       subject: `Inquiry portfolio: ${payload.purpose}`,
@@ -127,6 +127,13 @@ export async function POST(request) {
         payload.message,
       ].join("\n"),
     });
+
+    if (error) {
+      console.error("Resend email failed:", error.message || error);
+      return Response.json({ message: "Pesan tersimpan, tapi email notifikasi gagal dikirim." }, { status: 502 });
+    }
+
+    console.info("Resend email sent:", data?.id);
   } catch (error) {
     console.error("Resend email failed:", error.message);
     return Response.json({ message: "Pesan tersimpan, tapi email notifikasi gagal dikirim." }, { status: 502 });
