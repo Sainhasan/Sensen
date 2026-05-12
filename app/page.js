@@ -1,4 +1,6 @@
 import ContactForm from "@/components/ContactForm";
+import SkillsCarousel from "@/components/SkillsCarousel";
+import Image from "next/image";
 
 const services = [
   {
@@ -27,18 +29,21 @@ const projects = [
     title: "BAli",
     description: "Project website yang dipublish lewat GitHub Pages.",
     url: "https://sainhasan.github.io/BAli/",
+    logo: "/logos/bali.png",
   },
   {
     label: "Service",
     title: "Sistem Coba",
     description: "Aplikasi web yang sudah online di Vercel.",
     url: "https://sistem-coba.vercel.app/",
+    logo: "/logos/ls.png",
   },
   {
     label: "Learning",
     title: "Apologize",
     description: "Project interaktif yang dipublish lewat GitHub Pages.",
     url: "https://sainhasan.github.io/Apologize/",
+    logo: "/logos/maaf.png",
   },
 ];
 
@@ -56,6 +61,9 @@ const skills = [
   "Next.js",
   "Supabase",
   "Resend",
+  "Vercel",
+  "MySQL",
+  "MongoDB",
 ];
 
 export default function Home() {
@@ -145,13 +153,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="skills-cloud">
-            {skills.map((skill) => (
-              <span className="skill-pill" key={skill}>
-                {skill}
-              </span>
-            ))}
-          </div>
+          <SkillsCarousel skills={skills} />
         </div>
       </section>
 
@@ -166,7 +168,13 @@ export default function Home() {
           {projects.map((project) => (
             <div className="col-md-4" key={project.title}>
               <a className="project-card project-link text-decoration-none" href={project.url} target="_blank" rel="noreferrer">
-                <div className="project-thumb">{project.label}</div>
+                <div className="project-thumb">
+                  <Image 
+                  src={project.logo} 
+                  alt={`${project.title}`} 
+                  width={320} height={180}
+                  loading="eager" />
+                </div>
                 <h3 className="h5 fw-bold">{project.title}</h3>
                 <p className="muted mb-3">{project.description}</p>
                 <span className="project-cta">Buka project</span>
@@ -191,7 +199,6 @@ export default function Home() {
       <footer className="py-4">
         <div className="container d-flex flex-column flex-md-row justify-content-between gap-2 small muted">
           <span>&copy; {new Date().getFullYear()} Portfolio Pribadi</span>
-          <span>Built with Next.js, Bootstrap, Supabase, and Resend.</span>
         </div>
       </footer>
     </main>
