@@ -52,6 +52,10 @@ const skills = [
   "CSS",
   "Bootstrap",
   "Tailwind CSS",
+  "React",
+  "Next.js",
+  "Supabase",
+  "Resend",
 ];
 
 export default function Home() {
