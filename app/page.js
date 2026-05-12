@@ -25,21 +25,21 @@ const services = [
 
 const projects = [
   {
-    label: "Portfolio",
+    label: "Website",
     title: "BAli",
-    description: "Project website yang dipublish lewat GitHub Pages.",
+    description: "Website yang dipublish lewat GitHub Pages.",
     url: "https://sainhasan.github.io/BAli/",
     logo: "/logos/bali.png",
   },
   {
-    label: "Service",
-    title: "Sistem Coba",
-    description: "Aplikasi web yang sudah online di Vercel.",
-    url: "https://sistem-coba.vercel.app/",
-    logo: "/logos/ls.png",
+    label: "Portfolio",
+    title: "Portfolio",
+    description: "Portfolio online di Vercel dengan Supabase untuk database dan Resend untuk email.",
+    url: "https://sensen-lemon.vercel.app/",
+    logo: "/logos/Porto.png",
   },
   {
-    label: "Learning",
+    label: "Interactive",
     title: "Apologize",
     description: "Project interaktif yang dipublish lewat GitHub Pages.",
     url: "https://sainhasan.github.io/Apologize/",
